@@ -52,6 +52,8 @@ def main() -> None:
     index = index_pb2.Index()
     index.name = "Loooooooony Arabic Extensions"
     index.badgeLabel = "Discord"
+    index.signingKey = "7d44ab0fdfa10a528d0b43c64376201bb0a4fce27e7effb85d88afad868deb08"
+    index.contact.website = f"https://github.com/{GITHUB_REPO}"
     ext_list = index.extensionList.extensions
 
     legacy_entries = []

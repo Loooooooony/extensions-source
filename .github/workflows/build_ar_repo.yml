@@ -36,7 +36,16 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build Arabic extensions (debug-signed, no secrets needed)
+      - name: Prepare signing key
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        run: echo "$SIGNING_KEY" | base64 -d > signingkey.jks
+
+      - name: Build Arabic extensions (signed with repo key)
+        env:
+          ALIAS: discordkey
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           TASKS=()
           for dir in src/ar/*/; do
