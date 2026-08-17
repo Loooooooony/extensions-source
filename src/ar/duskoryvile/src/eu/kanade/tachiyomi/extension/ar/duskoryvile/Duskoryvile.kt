@@ -153,6 +153,7 @@ abstract class Duskoryvile :
             title = document.selectFirst("meta[property=og:title]")?.attr("content"),
             chapterName = document.selectFirst("h1")?.text(),
             chapterUrl = document.location().ifBlank { null },
+            coverUrl = document.selectFirst("meta[property=og:image]")?.attr("content"),
         )
         return document.select(".dap-pages img.dap-page").mapIndexed { index, element ->
             val imageUrl = if (element.hasAttr("data-src")) {

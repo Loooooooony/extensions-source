@@ -331,6 +331,7 @@ abstract class MMRCMS : HttpSource() {
             title = document.selectFirst("meta[property=og:title]")?.attr("content"),
             chapterName = document.selectFirst("h1")?.text(),
             chapterUrl = document.location().ifBlank { null },
+            coverUrl = document.selectFirst("meta[property=og:image]")?.attr("content"),
         )
         return document.select("#all > img.img-responsive").mapIndexed { i, it ->
             Page(i, imageUrl = it.imgAttr())

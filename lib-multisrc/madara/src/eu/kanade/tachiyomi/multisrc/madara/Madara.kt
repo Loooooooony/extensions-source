@@ -1093,10 +1093,11 @@ abstract class Madara : HttpSource() {
         DiscordBridgeReporter.reportChapterOpened(
             source = name,
             title = breadcrumbItems.getOrNull(1)
-                ?: document.selectFirst("meta[property=og:site_name]")?.attr("content"),
+                ?: document.selectFirst("meta[property=og:title]")?.attr("content"),
             chapterName = breadcrumbItems.lastOrNull()
                 ?: document.selectFirst("h1")?.text(),
             chapterUrl = document.location().ifBlank { null },
+            coverUrl = document.selectFirst("meta[property=og:image]")?.attr("content"),
         )
     }
 

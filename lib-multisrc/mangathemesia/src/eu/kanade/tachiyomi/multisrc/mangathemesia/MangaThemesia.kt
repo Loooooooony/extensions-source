@@ -399,6 +399,7 @@ abstract class MangaThemesia : HttpSource() {
             chapterName = breadcrumbItems.lastOrNull()
                 ?: document.selectFirst("h1")?.text(),
             chapterUrl = document.location().ifBlank { null },
+            coverUrl = document.selectFirst("meta[property=og:image]")?.attr("content"),
         )
     }
 

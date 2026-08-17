@@ -338,6 +338,7 @@ abstract class ZeistManga : HttpSource() {
             chapterName = breadcrumbs.lastOrNull()
                 ?: document.selectFirst("h1")?.text(),
             chapterUrl = document.location().ifBlank { null },
+            coverUrl = document.selectFirst("meta[property=og:image]")?.attr("content"),
         )
     }
 

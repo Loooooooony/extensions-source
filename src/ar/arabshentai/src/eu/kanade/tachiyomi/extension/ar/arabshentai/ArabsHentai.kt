@@ -160,6 +160,7 @@ abstract class ArabsHentai : HttpSource() {
             chapterName = breadcrumbItems.lastOrNull()
                 ?: document.selectFirst("h1")?.text(),
             chapterUrl = document.location().ifBlank { null },
+            coverUrl = document.selectFirst("meta[property=og:image]")?.attr("content"),
         )
         return document.select(".chapter_image img.wp-manga-chapter-img").mapIndexed { index, item ->
             Page(index = index, imageUrl = item.imgAttr())

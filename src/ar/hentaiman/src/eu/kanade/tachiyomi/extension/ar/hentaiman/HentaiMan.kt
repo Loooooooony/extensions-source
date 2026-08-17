@@ -116,6 +116,7 @@ abstract class HentaiMan : HttpSource() {
             title = doc.selectFirst("meta[property=og:title]")?.attr("content"),
             chapterName = doc.selectFirst("h1")?.text(),
             chapterUrl = doc.location().ifBlank { null },
+            coverUrl = doc.selectFirst("meta[property=og:image]")?.attr("content"),
         )
         return doc.select("#reader img.reader-page").mapIndexed { i, img ->
             val src = img.attr("abs:src").ifEmpty { img.attr("abs:data-src") }

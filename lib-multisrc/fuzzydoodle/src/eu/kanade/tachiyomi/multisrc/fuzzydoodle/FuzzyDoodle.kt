@@ -305,6 +305,7 @@ abstract class FuzzyDoodle : HttpSource() {
             title = document.selectFirst("meta[property=og:title]")?.attr("content"),
             chapterName = document.selectFirst("h1")?.text(),
             chapterUrl = document.location().ifBlank { null },
+            coverUrl = document.selectFirst("meta[property=og:image]")?.attr("content"),
         )
         return document.select("div#chapter-container > img").mapIndexed { idx, img ->
             Page(idx, imageUrl = img.imgAttr())
