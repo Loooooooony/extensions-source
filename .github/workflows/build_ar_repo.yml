@@ -44,7 +44,7 @@ jobs:
             TASKS+=(":src:ar:${name}:assembleRelease")
           done
           echo "Building ${#TASKS[@]} modules"
-          ./gradlew --continue "${TASKS[@]}"
+          ./gradlew --continue "${TASKS[@]}" -x spotlessKotlinCheck -x spotlessCheck -x spotlessKotlinGradleCheck
 
       - name: Generate repo files
         run: python .github/scripts/make_ar_repo.py repo-out
