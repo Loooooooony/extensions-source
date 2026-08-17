@@ -370,6 +370,20 @@ abstract class KeiSource : HttpSource() {
     @Volatile
     private var lastMangaCover: String? = null
 
+    /**
+     * Reports the opened chapter to the local Discord bridge (best-effort, never blocks).
+     * Call this at the start of getPageList implementations.
+     */
+    protected fun reportChapterToDiscordBridge(chapter: SChapter) {
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = lastMangaTitle,
+            chapterName = chapter.name,
+            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
+            coverUrl = lastMangaCover,
+        )
+    }
+
     final override suspend fun getMangaUpdate(
         manga: SManga,
         chapters: List<SChapter>,

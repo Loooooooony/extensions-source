@@ -124,6 +124,7 @@ abstract class MangaTek : KeiSource() {
     //  ============================== Page ==============================
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val document = client.get("$baseUrl${chapter.url}").asJsoup()
         val props: ChapterProps = document.extractAstroProp("imageUrls")
         val overlaysByPageNumber: Map<Int, OverlayPage> = props.overlayBlob

@@ -204,6 +204,7 @@ abstract class MangaTales : KeiSource() {
     )
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val response = client.get("$baseUrl/${chapter.url}")
         val data = response.asJsoup()
             .select(".js-react-on-rails-component").html()

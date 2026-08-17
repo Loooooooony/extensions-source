@@ -185,6 +185,7 @@ abstract class MangaCloud : KeiSource() {
     // ============================== Pages ===============================
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val url = "${FIRESTORE_URL}/${chapter.url}?key=$API_KEY".toHttpUrl()
         val response = client.get(url)
         return FirestoreParser.parsePages(response)

@@ -240,6 +240,7 @@ abstract class StellarSaber : KeiSource() {
     // ------------------- Pages -------------------
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val document = client.get(baseUrl + chapter.url).asJsoup()
 
         val key = fetchCdnKey(document)

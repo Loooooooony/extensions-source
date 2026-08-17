@@ -105,6 +105,7 @@ abstract class MangaDar : KeiSource() {
     // ============================== Pages ===============================
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val url = "$baseUrl${chapter.url}".toHttpUrl()
         val response = client.get(url)
         val doc = response.asJsoup()

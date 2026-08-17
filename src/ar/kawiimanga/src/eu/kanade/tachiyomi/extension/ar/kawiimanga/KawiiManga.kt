@@ -75,6 +75,7 @@ abstract class KawiiManga : KeiSource() {
     override fun getChapterUrl(chapter: SChapter): String = "$baseUrl/reader/${chapter.url.substringBeforeLast("#")}"
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val chapterId = chapter.url.substringAfterLast('#')
         val response = client.get("$apiUrl?action=pages&chapterId=$chapterId")
         return response.parseAs<Pages>().pages.mapIndexed { idx, img ->

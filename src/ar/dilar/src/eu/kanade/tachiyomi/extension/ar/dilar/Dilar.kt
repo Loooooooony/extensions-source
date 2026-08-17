@@ -110,6 +110,7 @@ abstract class Dilar : KeiSource() {
     override fun getChapterUrl(chapter: SChapter): String = "$baseUrl/reader/${chapter.url.substringBeforeLast("#")}"
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val chapterUrl = "$baseUrl/api/chapters/${chapter.url.substringAfterLast("#")}"
         val body = "{}".toRequestBody(JSON_MEDIA_TYPE)
         val unlock = client.post("$chapterUrl/unlock/free", body).parseAs<UnlockDto>()

@@ -51,6 +51,7 @@ abstract class Oduto : KeiSource() {
     }
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val document = client.get(baseUrl + chapter.url).asJsoup()
         return document.select("div#post-body img").mapIndexed { index, element ->
             Page(index, imageUrl = element.absUrl("src"))

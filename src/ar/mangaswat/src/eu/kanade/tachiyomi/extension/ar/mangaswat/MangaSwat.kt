@@ -110,6 +110,7 @@ abstract class MangaSwat : KeiSource() {
     override fun getChapterUrl(chapter: SChapter): String = "$baseUrl/chapter/${chapter.url.getMangaId()}"
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val response = client.get("$apiUrl/chapters/${chapter.url.getMangaId()}/")
 
         val chapter = response.parseAs<PageListDto>()

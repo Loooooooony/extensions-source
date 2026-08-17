@@ -222,6 +222,7 @@ abstract class TeamX : KeiSource() {
     override fun getChapterUrl(chapter: SChapter): String = baseUrl + chapter.url
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val response = client.get("$baseUrl${chapter.url}")
         return response.asJsoup()
             .select("div.image_list canvas[data-src], div.image_list img[src]")

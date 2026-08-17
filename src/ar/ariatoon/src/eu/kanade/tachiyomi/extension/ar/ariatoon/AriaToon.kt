@@ -96,6 +96,7 @@ abstract class AriaToon : KeiSource() {
     override fun getChapterUrl(chapter: SChapter): String = "$baseUrl/series/manga/${chapter.url}"
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val mangaId = chapter.url.substringBefore("/episodes/")
         val episodeId = chapter.url.substringAfterLast("/")
         val response = client.get("$apiUrl/mangas/$mangaId/episodes/$episodeId")

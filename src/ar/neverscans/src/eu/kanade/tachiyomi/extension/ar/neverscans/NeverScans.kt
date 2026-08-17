@@ -110,6 +110,7 @@ abstract class NeverScans : KeiSource() {
     // ============================== Pages ================================
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val response = client.get("$baseUrl/${chapter.url}")
         val doc = response.asJsoup()
         return doc.select("img[src*=/api/public/page/]").mapIndexed { index, img ->

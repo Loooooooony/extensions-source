@@ -99,6 +99,7 @@ abstract class MangaTime : KeiSource() {
     // Pages
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val chapterUrl = getChapterUrl(chapter).toHttpUrl()
         val seriesSlug = chapterUrl.pathSegments[1]
         val chapterNumber = chapterUrl.pathSegments[3].toInt()

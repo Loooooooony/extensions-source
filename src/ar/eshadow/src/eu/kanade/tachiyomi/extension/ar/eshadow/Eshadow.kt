@@ -53,6 +53,7 @@ abstract class Eshadow : KeiSource() {
     }
 
     override suspend fun getPageList(chapter: SChapter): List<Page> {
+        reportChapterToDiscordBridge(chapter)
         val images = chapter.memo["pages"]!!.parseAs<List<String>>()
         return images.mapIndexed { index, imageUrl ->
             Page(index, imageUrl = imageUrl)
