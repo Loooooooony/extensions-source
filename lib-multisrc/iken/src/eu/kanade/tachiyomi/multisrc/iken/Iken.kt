@@ -361,13 +361,6 @@ abstract class Iken :
                 client.get("$apiUrl/api/post?postSlug=$slug").parseAs<MangaDto>().post.toSManga()
             }
         }.getOrNull()
-        DiscordBridgeReporter.reportChapterOpened(
-            source = name,
-            title = seriesMeta?.title ?: seriesSlug,
-            chapterName = chapter.name,
-            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
-            coverUrl = seriesMeta?.thumbnail_url,
-        )
 
         val sortedPages = if (sortPagesByFilename) {
             data.images.sortedWith(
@@ -380,9 +373,23 @@ abstract class Iken :
             data.images.sortedBy { it.order ?: Int.MAX_VALUE }
         }
 
-        return sortedPages.mapIndexed { idx, p ->
+        val pages = sortedPages.mapIndexed { idx, p ->
             Page(idx, imageUrl = p.url.replace(" ", "%20"))
         }
+
+        // Apps prefetch page lists of upcoming chapters early, so do NOT report
+        // here. Register the pages instead: the chapter is reported the moment
+        // the reader actually requests one of its images.
+        DiscordBridgeReporter.registerChapterPages(
+            source = name,
+            title = seriesMeta?.title ?: seriesSlug,
+            chapterName = chapter.name,
+            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
+            coverUrl = seriesMeta?.thumbnail_url,
+            imageUrls = pages.mapNotNull { it.imageUrl },
+        )
+
+        return pages
     }
 
     // ============================== View =============================

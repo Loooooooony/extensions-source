@@ -47,34 +47,80 @@ object DiscordBridgeReporter {
 
     private val lastHeartbeatAt = java.util.concurrent.atomic.AtomicLong(0)
 
+    // ====== page-triggered reporting ======
+    // Apps prefetch page LISTS of upcoming chapters early, so getPageList is not
+    // a reliable "user is reading this" signal. Instead, sources register their
+    // page image URLs here, and we report the chapter only when the reader
+    // actually requests one of its images.
+
+    private class ChapterInfo(
+        val source: String,
+        val title: String?,
+        val chapterName: String?,
+        val chapterUrl: String?,
+        val coverUrl: String?,
+    )
+
+    private val pageChapterMap = java.util.concurrent.ConcurrentHashMap<String, ChapterInfo>()
+
+    @Volatile
+    private var lastReportedChapterKey: String? = null
+
+    /** Register a chapter's page image URLs so it is reported when actually viewed. */
+    fun registerChapterPages(
+        source: String,
+        title: String?,
+        chapterName: String?,
+        chapterUrl: String?,
+        coverUrl: String?,
+        imageUrls: List<String>,
+    ) {
+        if (!enabled) return
+        val info = ChapterInfo(source, title, chapterName, chapterUrl, coverUrl)
+        imageUrls.forEach { pageChapterMap[it] = info }
+        if (pageChapterMap.size > 3000) pageChapterMap.clear()
+    }
+
     /**
-     * Interceptor that piggybacks on the source's network activity (page/image loads)
-     * to send a throttled "still reading" heartbeat to the bridge.
+     * Interceptor that piggybacks on the source's network activity (page/image loads):
+     * - reports a chapter the moment the reader actually requests one of its pages
+     * - otherwise sends a throttled "still reading" heartbeat to the bridge
      *
-     * Only active for 30 minutes after the last reported chapter, so casual
-     * browsing does not keep the presence alive. At most one heartbeat per 20s.
+     * Heartbeats are only active for 30 minutes after the last reported chapter,
+     * so casual browsing does not keep the presence alive.
      */
     fun heartbeatInterceptor(): okhttp3.Interceptor = okhttp3.Interceptor { chain ->
-        val now = System.currentTimeMillis()
-        val prev = lastHeartbeatAt.get()
-        if (enabled &&
-            now - lastChapterOpenAt < 30 * 60_000L &&
-            now - prev > 20_000L &&
-            lastHeartbeatAt.compareAndSet(prev, now)
-        ) {
-            scope.launch {
-                runCatching {
-                    val payload = """{"event":"heartbeat","timestamp":${now / 1000}}"""
-                    val request = Request.Builder()
-                        .url("$BRIDGE_URL/api/reading")
-                        .header("X-Bridge-Token", BRIDGE_TOKEN)
-                        .post(payload.toRequestBody("application/json; charset=utf-8".toMediaType()))
-                        .build()
-                    client.newCall(request).execute().close()
+        val request = chain.request()
+        if (enabled) {
+            val now = System.currentTimeMillis()
+
+            pageChapterMap[request.url.toString()]?.let { info ->
+                val key = "${info.source}|${info.chapterName}"
+                if (key != lastReportedChapterKey) {
+                    lastReportedChapterKey = key
+                    reportChapterOpened(info.source, info.title, info.chapterName, info.chapterUrl, info.coverUrl)
+                }
+            }
+
+            val prev = lastHeartbeatAt.get()
+            if (now - lastChapterOpenAt < 30 * 60_000L &&
+                now - prev > 20_000L &&
+                lastHeartbeatAt.compareAndSet(prev, now)
+            ) {
+                scope.launch {
+                    runCatching {
+                        val payload = """{"event":"heartbeat","timestamp":${now / 1000}}"""
+                        val hbRequest = Request.Builder()
+                            .url("$BRIDGE_URL/api/reading")
+                            .header("X-Bridge-Token", BRIDGE_TOKEN)
+                            .post(payload.toRequestBody("application/json; charset=utf-8".toMediaType()))
+                            .build()
+                        client.newCall(hbRequest).execute().close()
+                    }
                 }
             }
         }
-        chain.proceed(chain.request())
+        chain.proceed(request)
     }
 
     fun reportChapterOpened(
