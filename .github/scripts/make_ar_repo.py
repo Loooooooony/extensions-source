@@ -1,21 +1,32 @@
-"""Generate a Tachiyomi/Tachimanga-compatible extension repo from built src/ar APKs.
+"""Generate a Tachimanga-compatible extension repo from built src/ar APKs.
 
 Usage: python .github/scripts/make_ar_repo.py <output_dir>
 
-Reads each module's build/keiyoushi-source-info.json (emitted by assembleRelease),
-collects the release APK and icon, and writes index.min.json / index.json plus
-apk/ and icon/ folders into the output directory.
+Outputs into <output_dir>:
+  - index.pb          modern protobuf index (used by current Tachimanga/Mihon)
+  - index.json        protobuf-JSON mirror of the index
+  - index.min.json    legacy JSON index (older clients)
+  - apk/  jar/  icon/
+
+Set GITHUB_REPOSITORY (owner/repo) so absolute URLs in index.pb are correct.
 """
 
 import json
 import shutil
 import sys
+import os
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import index_pb2  # noqa: E402
+from google.protobuf import json_format  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "repo-out")
 
-ICON_FILE = "res/mipmap-xxxhdpi/ic_launcher.png"
+GITHUB_REPO = os.environ.get("GITHUB_REPOSITORY", "Loooooooony/extensions-source")
+BASE_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/repo"
+
 ICON_FALLBACKS = [
     "res/mipmap-xxxhdpi/ic_launcher.png",
     "res/mipmap-xxhdpi/ic_launcher.png",
@@ -25,27 +36,25 @@ ICON_FALLBACKS = [
 
 def find_icon(module: str, theme: str | None) -> Path | None:
     module_dir = ROOT / "src" / module.replace(".", "/")
-    for rel in ICON_FALLBACKS:
-        candidate = module_dir / rel
-        if candidate.exists():
-            return candidate
-    if theme:
-        theme_dir = ROOT / "lib-multisrc" / theme
+    candidates = [module_dir] + ([ROOT / "lib-multisrc" / theme] if theme else []) + [ROOT / "core" / "src" / "main"]
+    for base in candidates:
         for rel in ICON_FALLBACKS:
-            candidate = theme_dir / rel
-            if candidate.exists():
-                return candidate
-    core_icon = ROOT / "core" / "src" / "main" / ICON_FILE
-    return core_icon if core_icon.exists() else None
+            if (base / rel).exists():
+                return base / rel
+    return None
 
 
 def main() -> None:
-    apk_out = OUT / "apk"
-    icon_out = OUT / "icon"
-    apk_out.mkdir(parents=True, exist_ok=True)
-    icon_out.mkdir(parents=True, exist_ok=True)
+    apk_out, jar_out, icon_out = OUT / "apk", OUT / "jar", OUT / "icon"
+    for d in (apk_out, jar_out, icon_out):
+        d.mkdir(parents=True, exist_ok=True)
 
-    entries = []
+    index = index_pb2.Index()
+    index.name = "Loooooooony Arabic Extensions"
+    index.badgeLabel = "Discord"
+    ext_list = index.extensionList.extensions
+
+    legacy_entries = []
     skipped = []
 
     for info_file in sorted(ROOT.glob("src/ar/*/build/keiyoushi-source-info.json")):
@@ -53,18 +62,45 @@ def main() -> None:
         pkg = info["packageName"]
 
         apks = list(info_file.parent.glob("outputs/apk/release/*.apk"))
+        jars = list(info_file.parent.glob("outputs/jar/release/*.jar"))
         if not apks:
             skipped.append(pkg)
             continue
         apk = apks[0]
 
         shutil.copy2(apk, apk_out / apk.name)
+        jar_name = ""
+        if jars:
+            shutil.copy2(jars[0], jar_out / jars[0].name)
+            jar_name = jars[0].name
 
         icon = find_icon(info["module"], info.get("theme"))
+        icon_name = ""
         if icon:
-            shutil.copy2(icon, icon_out / f"{pkg}.png")
+            icon_name = f"{pkg}.png"
+            shutil.copy2(icon, icon_out / icon_name)
 
-        entries.append({
+        ext = ext_list.add()
+        ext.name = info["name"]
+        ext.packageName = pkg
+        ext.resources.apkUrl = f"{BASE_URL}/apk/{apk.name}"
+        if icon_name:
+            ext.resources.iconUrl = f"{BASE_URL}/icon/{icon_name}"
+        if jar_name:
+            ext.resources.jarUrl = f"{BASE_URL}/jar/{jar_name}"
+        ext.extensionLib = info["extensionLib"]
+        ext.versionCode = info["versionCode"]
+        ext.versionName = info["versionName"]
+        ext.contentWarning = info.get("contentWarning", 0)
+        for src in info["sources"]:
+            s = ext.sources.add()
+            s.id = src["id"]
+            s.name = src["name"]
+            s.language = src["lang"]
+            s.homeUrl = src["baseUrl"]
+            s.mirrorUrls.extend(src.get("mirrorUrls", []))
+
+        legacy_entries.append({
             "name": info["name"],
             "pkg": pkg,
             "apk": apk.name,
@@ -78,21 +114,23 @@ def main() -> None:
                     "lang": src["lang"],
                     "id": str(src["id"]),
                     "baseUrl": src["baseUrl"],
+                    "versionId": 1,
                 }
                 for src in info["sources"]
             ],
         })
 
-    (OUT / "index.min.json").write_text(
-        json.dumps(entries, ensure_ascii=False, separators=(",", ":")),
+    (OUT / "index.pb").write_bytes(index.SerializeToString())
+    (OUT / "index.json").write_text(
+        json_format.MessageToJson(index, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-    (OUT / "index.json").write_text(
-        json.dumps(entries, ensure_ascii=False, indent=2),
+    (OUT / "index.min.json").write_text(
+        json.dumps(legacy_entries, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
     )
 
-    print(f"Repo generated: {len(entries)} extensions -> {OUT}")
+    print(f"Repo generated: {len(legacy_entries)} extensions -> {OUT}")
     if skipped:
         print("Skipped (no APK built):")
         for pkg in skipped:
