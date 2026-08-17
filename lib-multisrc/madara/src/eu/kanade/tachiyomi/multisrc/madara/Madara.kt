@@ -14,6 +14,7 @@ import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
 import keiyoushi.lib.cryptoaes.CryptoAES
 import keiyoushi.lib.i18n.Intl
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.decodeHex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -1046,6 +1047,7 @@ abstract class Madara : HttpSource() {
 
     protected open fun pageListParse(document: Document): List<Page> {
         launchIO { countViews(document) }
+        reportChapterToDiscordBridge(document)
 
         val chapterProtector = document.selectFirst(chapterProtectorSelector)
             ?: return document.select(pageListParseSelector).mapIndexed { index, element ->
@@ -1081,6 +1083,22 @@ abstract class Madara : HttpSource() {
     }
 
     override fun imageRequest(page: Page): Request = GET(page.imageUrl!!, headers.newBuilder().set("Referer", page.url).build())
+
+    /**
+     * Reports the opened chapter to the local Discord bridge (best-effort, never blocks).
+     * The manga title and chapter name are extracted from the chapter page breadcrumb.
+     */
+    protected open fun reportChapterToDiscordBridge(document: Document) {
+        val breadcrumbItems = document.select(".breadcrumb li, ol.breadcrumb li").eachText()
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = breadcrumbItems.getOrNull(1)
+                ?: document.selectFirst("meta[property=og:site_name]")?.attr("content"),
+            chapterName = breadcrumbItems.lastOrNull()
+                ?: document.selectFirst("h1")?.text(),
+            chapterUrl = document.location().ifBlank { null },
+        )
+    }
 
     override fun imageUrlParse(response: Response) = throw UnsupportedOperationException()
 

@@ -11,6 +11,7 @@ import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
+import keiyoushi.utils.DiscordBridgeReporter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -299,6 +300,12 @@ abstract class FuzzyDoodle : HttpSource() {
     // pages
     override fun pageListParse(response: Response): List<Page> {
         val document = response.asJsoup()
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = document.selectFirst("meta[property=og:title]")?.attr("content"),
+            chapterName = document.selectFirst("h1")?.text(),
+            chapterUrl = document.location().ifBlank { null },
+        )
         return document.select("div#chapter-container > img").mapIndexed { idx, img ->
             Page(idx, imageUrl = img.imgAttr())
         }

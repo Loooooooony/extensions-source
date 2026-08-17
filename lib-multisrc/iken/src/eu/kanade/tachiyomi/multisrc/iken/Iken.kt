@@ -14,6 +14,7 @@ import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.model.SMangaUpdate
 import keiyoushi.lib.i18n.Intl
 import keiyoushi.network.get
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.network.post
 import keiyoushi.source.KeiSource
 import keiyoushi.utils.getPreferencesLazy
@@ -352,6 +353,13 @@ abstract class Iken :
         }
 
         updateViews(null, id)
+
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = chapter.memo["seriesSlug"]?.string,
+            chapterName = chapter.name,
+            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
+        )
 
         val sortedPages = if (sortPagesByFilename) {
             data.images.sortedWith(

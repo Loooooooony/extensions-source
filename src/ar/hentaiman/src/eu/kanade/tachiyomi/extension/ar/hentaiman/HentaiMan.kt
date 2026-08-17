@@ -10,6 +10,7 @@ import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
 import keiyoushi.annotation.Source
 import keiyoushi.network.rateLimit
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.tryParse
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.Request
@@ -110,6 +111,12 @@ abstract class HentaiMan : HttpSource() {
 
     override fun pageListParse(response: Response): List<Page> {
         val doc = response.asJsoup()
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = doc.selectFirst("meta[property=og:title]")?.attr("content"),
+            chapterName = doc.selectFirst("h1")?.text(),
+            chapterUrl = doc.location().ifBlank { null },
+        )
         return doc.select("#reader img.reader-page").mapIndexed { i, img ->
             val src = img.attr("abs:src").ifEmpty { img.attr("abs:data-src") }
             Page(i, imageUrl = src)

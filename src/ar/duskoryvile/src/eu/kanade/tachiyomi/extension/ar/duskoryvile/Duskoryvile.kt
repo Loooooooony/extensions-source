@@ -12,6 +12,7 @@ import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
 import keiyoushi.annotation.Source
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.getPreferencesLazy
 import keiyoushi.utils.tryParse
 import okhttp3.FormBody
@@ -147,6 +148,12 @@ abstract class Duskoryvile :
 
     override fun pageListParse(response: Response): List<Page> {
         val document = response.asJsoup()
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = document.selectFirst("meta[property=og:title]")?.attr("content"),
+            chapterName = document.selectFirst("h1")?.text(),
+            chapterUrl = document.location().ifBlank { null },
+        )
         return document.select(".dap-pages img.dap-page").mapIndexed { index, element ->
             val imageUrl = if (element.hasAttr("data-src")) {
                 element.absUrl("data-src")

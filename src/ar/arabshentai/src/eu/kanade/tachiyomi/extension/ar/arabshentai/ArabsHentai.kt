@@ -10,6 +10,7 @@ import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
 import keiyoushi.annotation.Source
 import keiyoushi.network.rateLimit
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.tryParse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -151,6 +152,15 @@ abstract class ArabsHentai : HttpSource() {
     // =============================== Pages ================================
     override fun pageListParse(response: Response): List<Page> {
         val document = response.asJsoup()
+        val breadcrumbItems = document.select(".breadcrumb li, ol.breadcrumb li").eachText()
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = breadcrumbItems.getOrNull(1)
+                ?: document.selectFirst("meta[property=og:title]")?.attr("content"),
+            chapterName = breadcrumbItems.lastOrNull()
+                ?: document.selectFirst("h1")?.text(),
+            chapterUrl = document.location().ifBlank { null },
+        )
         return document.select(".chapter_image img.wp-manga-chapter-img").mapIndexed { index, item ->
             Page(index = index, imageUrl = item.imgAttr())
         }

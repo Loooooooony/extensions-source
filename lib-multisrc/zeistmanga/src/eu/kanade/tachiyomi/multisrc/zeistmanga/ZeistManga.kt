@@ -9,6 +9,7 @@ import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.tryParse
 import kotlinx.serialization.json.Json
 import okhttp3.Headers
@@ -318,10 +319,26 @@ abstract class ZeistManga : HttpSource() {
 
     override fun pageListParse(response: Response): List<Page> {
         val document = response.asJsoup()
+        reportChapterToDiscordBridge(document)
         val images = document.select(pageListSelector)
         return images.select("img[src]").mapIndexed { i, img ->
             Page(i, "", img.attr("abs:src"))
         }
+    }
+
+    /**
+     * Reports the opened chapter to the local Discord bridge (best-effort, never blocks).
+     */
+    protected open fun reportChapterToDiscordBridge(document: org.jsoup.nodes.Document) {
+        val breadcrumbs = document.select(".breadcrumb li, .breadcrumbs a, ol.breadcrumb li").eachText()
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = breadcrumbs.getOrNull(breadcrumbs.size - 2)
+                ?: document.selectFirst("meta[property=og:title]")?.attr("content"),
+            chapterName = breadcrumbs.lastOrNull()
+                ?: document.selectFirst("h1")?.text(),
+            chapterUrl = document.location().ifBlank { null },
+        )
     }
 
     override fun imageUrlParse(response: Response) = throw UnsupportedOperationException()

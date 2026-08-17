@@ -11,6 +11,7 @@ import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
 import keiyoushi.lib.i18n.Intl
+import keiyoushi.utils.DiscordBridgeReporter
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonPrimitive
@@ -359,6 +360,7 @@ abstract class MangaThemesia : HttpSource() {
 
     protected open fun pageListParse(document: Document): List<Page> {
         countViews(document)
+        reportChapterToDiscordBridge(document)
 
         val chapterUrl = document.location()
         val htmlPages = document.select(pageSelector)
@@ -382,6 +384,22 @@ abstract class MangaThemesia : HttpSource() {
         }
 
         return scriptPages
+    }
+
+    /**
+     * Reports the opened chapter to the local Discord bridge (best-effort, never blocks).
+     * The manga title and chapter name are extracted from the chapter page breadcrumb.
+     */
+    protected open fun reportChapterToDiscordBridge(document: Document) {
+        val breadcrumbItems = document.select(".breadcrumb li, ol.breadcrumb li, .breadcrumbs a").eachText()
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = breadcrumbItems.getOrNull(1)
+                ?: document.selectFirst("meta[property=og:title]")?.attr("content"),
+            chapterName = breadcrumbItems.lastOrNull()
+                ?: document.selectFirst("h1")?.text(),
+            chapterUrl = document.location().ifBlank { null },
+        )
     }
 
     override fun imageRequest(page: Page): Request {

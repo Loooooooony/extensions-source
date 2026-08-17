@@ -9,6 +9,7 @@ import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.HttpSource
 import keiyoushi.annotation.Source
 import keiyoushi.network.rateLimit
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.parseAs
 import keiyoushi.utils.toJsonRequestBody
 import okhttp3.Request
@@ -133,8 +134,16 @@ abstract class BrownManga : HttpSource() {
         return apiQuery(body)
     }
 
-    override fun pageListParse(response: Response): List<Page> = response.parseAs<List<ChapterPageDto>>().mapIndexed { index, page ->
-        Page(index, imageUrl = page.imageUrl ?: "")
+    override fun pageListParse(response: Response): List<Page> {
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = null,
+            chapterName = null,
+            chapterUrl = response.request.url.toString(),
+        )
+        return response.parseAs<List<ChapterPageDto>>().mapIndexed { index, page ->
+            Page(index, imageUrl = page.imageUrl ?: "")
+        }
     }
 
     override fun imageUrlParse(response: Response): String = throw UnsupportedOperationException()

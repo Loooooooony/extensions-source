@@ -1,0 +1,63 @@
+name: Build Arabic extensions repo
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/ar/**"
+      - "core/**"
+      - "lib-multisrc/**"
+      - "gradle/**"
+      - "common/**"
+      - "compiler/**"
+      - ".github/workflows/build_ar_repo.yml"
+      - ".github/scripts/make_ar_repo.py"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build src/ar extensions and publish repo branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build Arabic extensions (debug-signed, no secrets needed)
+        run: |
+          TASKS=()
+          for dir in src/ar/*/; do
+            name=$(basename "$dir")
+            TASKS+=(":src:ar:${name}:assembleRelease")
+          done
+          echo "Building ${#TASKS[@]} modules"
+          ./gradlew --continue "${TASKS[@]}"
+
+      - name: Generate repo files
+        run: python .github/scripts/make_ar_repo.py repo-out
+
+      - name: Publish to repo branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd repo-out
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q -b repo
+          git add -A
+          git commit -q -m "Update Arabic extensions repo"
+          git push --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo:repo

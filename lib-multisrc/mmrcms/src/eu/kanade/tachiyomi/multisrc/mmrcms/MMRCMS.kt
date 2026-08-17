@@ -15,6 +15,7 @@ import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.asJsoup
 import keiyoushi.lib.i18n.Intl
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.parseAs
 import keiyoushi.utils.tryParse
 import kotlinx.coroutines.CoroutineScope
@@ -324,8 +325,16 @@ abstract class MMRCMS : HttpSource() {
 
     override fun pageListParse(response: Response): List<Page> = pageListParse(response.asJsoup())
 
-    protected open fun pageListParse(document: Document): List<Page> = document.select("#all > img.img-responsive").mapIndexed { i, it ->
-        Page(i, imageUrl = it.imgAttr())
+    protected open fun pageListParse(document: Document): List<Page> {
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = document.selectFirst("meta[property=og:title]")?.attr("content"),
+            chapterName = document.selectFirst("h1")?.text(),
+            chapterUrl = document.location().ifBlank { null },
+        )
+        return document.select("#all > img.img-responsive").mapIndexed { i, it ->
+            Page(i, imageUrl = it.imgAttr())
+        }
     }
 
     override fun imageUrlParse(response: Response): String = throw UnsupportedOperationException()

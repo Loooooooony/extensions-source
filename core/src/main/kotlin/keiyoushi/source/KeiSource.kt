@@ -13,6 +13,7 @@ import eu.kanade.tachiyomi.source.model.SMangaUpdate
 import eu.kanade.tachiyomi.source.online.HttpSource
 import keiyoushi.network.CacheControlInterceptor
 import keiyoushi.network.RateLimitInterceptor
+import keiyoushi.utils.DiscordBridgeReporter
 import keiyoushi.utils.applicationContext
 import keiyoushi.utils.firstInstanceOrNull
 import keiyoushi.utils.jsonInstance
@@ -363,6 +364,12 @@ abstract class KeiSource : HttpSource() {
 
     private val updatesInFlight = ConcurrentHashMap<String, Boolean>()
 
+    @Volatile
+    private var lastMangaTitle: String? = null
+
+    @Volatile
+    private var lastMangaCover: String? = null
+
     final override suspend fun getMangaUpdate(
         manga: SManga,
         chapters: List<SChapter>,
@@ -375,6 +382,9 @@ abstract class KeiSource : HttpSource() {
 
         try {
             val update = fetchMangaUpdate(manga, chapters, fetchDetails, fetchChapters)
+
+            lastMangaTitle = update.manga.title.ifBlank { manga.title }
+            lastMangaCover = update.manga.thumbnail_url ?: manga.thumbnail_url
 
             return SMangaUpdate(
                 manga = update.manga.apply { initialized = true },
@@ -504,7 +514,16 @@ abstract class KeiSource : HttpSource() {
 
     @Deprecated("Hidden", level = DeprecationLevel.HIDDEN)
     @Suppress("DEPRECATION")
-    final override fun fetchPageList(chapter: SChapter): Observable<List<Page>> = super.fetchPageList(chapter)
+    final override fun fetchPageList(chapter: SChapter): Observable<List<Page>> {
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = lastMangaTitle,
+            chapterName = chapter.name,
+            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
+            coverUrl = lastMangaCover,
+        )
+        return super.fetchPageList(chapter)
+    }
 
     @Deprecated("Hidden", level = DeprecationLevel.HIDDEN)
     final override fun pageListRequest(chapter: SChapter) = throw UnsupportedOperationException()
