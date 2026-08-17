@@ -354,11 +354,19 @@ abstract class Iken :
 
         updateViews(null, id)
 
+        val seriesSlug = chapter.memo["seriesSlug"]?.string
+        // Fetch series meta (real title + cover) so Discord presence shows them
+        val seriesMeta = runCatching {
+            seriesSlug?.let { slug ->
+                client.get("$apiUrl/api/post?postSlug=$slug").parseAs<MangaDto>().post.toSManga()
+            }
+        }.getOrNull()
         DiscordBridgeReporter.reportChapterOpened(
             source = name,
-            title = chapter.memo["seriesSlug"]?.string,
+            title = seriesMeta?.title ?: seriesSlug,
             chapterName = chapter.name,
             chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
+            coverUrl = seriesMeta?.thumbnail_url,
         )
 
         val sortedPages = if (sortPagesByFilename) {
