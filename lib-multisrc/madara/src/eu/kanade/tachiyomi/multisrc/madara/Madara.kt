@@ -38,6 +38,11 @@ import java.util.Locale
 
 abstract class Madara : HttpSource() {
 
+    /** Adds the Discord bridge heartbeat to every request (page loads keep presence alive). */
+    override val client = super.client.newBuilder()
+        .addInterceptor(DiscordBridgeReporter.heartbeatInterceptor())
+        .build()
+
     protected open val dateFormat: SimpleDateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
 
     override val supportsLatest = true

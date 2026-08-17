@@ -42,6 +42,41 @@ object DiscordBridgeReporter {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
+    @Volatile
+    private var lastChapterOpenAt = 0L
+
+    private val lastHeartbeatAt = java.util.concurrent.atomic.AtomicLong(0)
+
+    /**
+     * Interceptor that piggybacks on the source's network activity (page/image loads)
+     * to send a throttled "still reading" heartbeat to the bridge.
+     *
+     * Only active for 30 minutes after the last reported chapter, so casual
+     * browsing does not keep the presence alive. At most one heartbeat per 20s.
+     */
+    fun heartbeatInterceptor(): okhttp3.Interceptor = okhttp3.Interceptor { chain ->
+        val now = System.currentTimeMillis()
+        val prev = lastHeartbeatAt.get()
+        if (enabled &&
+            now - lastChapterOpenAt < 30 * 60_000L &&
+            now - prev > 20_000L &&
+            lastHeartbeatAt.compareAndSet(prev, now)
+        ) {
+            scope.launch {
+                runCatching {
+                    val payload = """{"event":"heartbeat","timestamp":${now / 1000}}"""
+                    val request = Request.Builder()
+                        .url("$BRIDGE_URL/api/reading")
+                        .header("X-Bridge-Token", BRIDGE_TOKEN)
+                        .post(payload.toRequestBody("application/json; charset=utf-8".toMediaType()))
+                        .build()
+                    client.newCall(request).execute().close()
+                }
+            }
+        }
+        chain.proceed(chain.request())
+    }
+
     fun reportChapterOpened(
         source: String,
         title: String?,
@@ -50,6 +85,7 @@ object DiscordBridgeReporter {
         coverUrl: String? = null,
     ) {
         if (!enabled) return
+        lastChapterOpenAt = System.currentTimeMillis()
         scope.launch {
             runCatching {
                 val payload = buildJsonObject {

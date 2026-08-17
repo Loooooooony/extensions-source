@@ -44,6 +44,11 @@ import kotlin.math.min
  */
 abstract class MMRCMS : HttpSource() {
 
+    /** Adds the Discord bridge heartbeat to every request (page loads keep presence alive). */
+    override val client = super.client.newBuilder()
+        .addInterceptor(DiscordBridgeReporter.heartbeatInterceptor())
+        .build()
+
     protected open val dateFormat: SimpleDateFormat = SimpleDateFormat("d MMM. yyyy", Locale.US)
 
     protected open val itemPath: String = "manga"

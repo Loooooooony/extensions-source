@@ -24,6 +24,11 @@ import java.util.Locale
 
 abstract class ZeistManga : HttpSource() {
 
+    /** Adds the Discord bridge heartbeat to every request (page loads keep presence alive). */
+    override val client = super.client.newBuilder()
+        .addInterceptor(DiscordBridgeReporter.heartbeatInterceptor())
+        .build()
+
     override val supportsLatest = true
 
     protected val json: Json by injectLazy()

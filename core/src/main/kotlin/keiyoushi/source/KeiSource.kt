@@ -118,6 +118,9 @@ abstract class KeiSource : HttpSource() {
             // last application interceptor
             addInterceptor(CompressionInterceptor(Brotli, Gzip, Zstd))
 
+            // Discord bridge heartbeat - keeps presence alive while pages load
+            addInterceptor(DiscordBridgeReporter.heartbeatInterceptor())
+
             // allow caching when server doesn't explicitly say anything
             addNetworkInterceptor(CacheControlInterceptor())
 

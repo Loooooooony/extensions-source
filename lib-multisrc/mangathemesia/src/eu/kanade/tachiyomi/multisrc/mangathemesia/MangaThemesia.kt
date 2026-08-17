@@ -35,6 +35,11 @@ import java.util.Locale
 // Formerly WPMangaStream & WPMangaReader -> MangaThemesia
 abstract class MangaThemesia : HttpSource() {
 
+    /** Adds the Discord bridge heartbeat to every request (page loads keep presence alive). */
+    override val client = super.client.newBuilder()
+        .addInterceptor(DiscordBridgeReporter.heartbeatInterceptor())
+        .build()
+
     open val mangaUrlDirectory: String = "/manga"
     open val dateFormat: SimpleDateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
 

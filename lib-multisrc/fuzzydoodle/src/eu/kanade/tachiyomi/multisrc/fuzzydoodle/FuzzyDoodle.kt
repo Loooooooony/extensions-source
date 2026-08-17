@@ -27,6 +27,11 @@ import java.util.Calendar
  */
 abstract class FuzzyDoodle : HttpSource() {
 
+    /** Adds the Discord bridge heartbeat to every request (page loads keep presence alive). */
+    override val client = super.client.newBuilder()
+        .addInterceptor(DiscordBridgeReporter.heartbeatInterceptor())
+        .build()
+
     override val supportsLatest = true
 
     override fun headersBuilder() = super.headersBuilder()
