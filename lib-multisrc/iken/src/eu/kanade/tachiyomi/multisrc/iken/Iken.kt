@@ -362,6 +362,17 @@ abstract class Iken :
             }
         }.getOrNull()
 
+        // Immediate report (covers fresh chapter opens). The reader may prefetch
+        // this call early, so registerChapterPages below corrects the presence
+        // to the chapter whose pages are actually being displayed.
+        DiscordBridgeReporter.reportChapterOpened(
+            source = name,
+            title = seriesMeta?.title ?: seriesSlug,
+            chapterName = chapter.name,
+            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
+            coverUrl = seriesMeta?.thumbnail_url,
+        )
+
         val sortedPages = if (sortPagesByFilename) {
             data.images.sortedWith(
                 compareBy { page ->

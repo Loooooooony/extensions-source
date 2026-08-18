@@ -27,6 +27,21 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
 
+      - name: Bump version codes so Tachimanga offers updates on every build
+        run: |
+          python3 - <<'EOF'
+          import re, os, glob
+          run = int(os.environ['GITHUB_RUN_NUMBER'])
+          bumped = 0
+          for f in glob.glob('src/ar/*/build.gradle.kts'):
+              s = open(f, encoding='utf-8').read()
+              s2 = re.sub(r'versionCode = (\d+)', lambda m: f'versionCode = {int(m.group(1)) + run * 1000}', s)
+              if s2 != s:
+                  open(f, 'w', encoding='utf-8').write(s2)
+                  bumped += 1
+          print(f'Bumped {bumped} extensions with run number {run}')
+          EOF
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
