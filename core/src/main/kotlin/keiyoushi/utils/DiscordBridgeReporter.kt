@@ -47,13 +47,13 @@ object DiscordBridgeReporter {
 
     private val lastHeartbeatAt = java.util.concurrent.atomic.AtomicLong(0)
 
-    // ====== page-triggered reporting ======
-    // Apps prefetch page LISTS of upcoming chapters early, so getPageList is not
-    // a reliable "user is reading this" signal. Instead, sources register their
-    // page image URLs here, and we report the chapter only when the reader
-    // actually requests one of its images.
+    // ====== view-time reporting ======
+    // getPageList is called early (apps prefetch upcoming chapters), so it is not
+    // a reliable "user is reading this" signal. Instead, sources hand us chapter
+    // metadata here and report via reportChapterViewed() from getImageUrl(),
+    // which the app calls lazily right before displaying each page.
 
-    private class ChapterInfo(
+    private class ChapterMeta(
         val source: String,
         val title: String?,
         val chapterName: String?,
@@ -61,30 +61,37 @@ object DiscordBridgeReporter {
         val coverUrl: String?,
     )
 
-    private val pageChapterMap = java.util.concurrent.ConcurrentHashMap<String, ChapterInfo>()
+    private val chapterMetaByKey = java.util.concurrent.ConcurrentHashMap<String, ChapterMeta>()
 
     @Volatile
-    private var lastReportedChapterKey: String? = null
+    private var lastReportedViewKey: String? = null
 
-    /** Register a chapter's page image URLs so it is reported when actually viewed. */
-    fun registerChapterPages(
+    /** Register chapter metadata so view-time signals (getImageUrl) can report it. */
+    fun registerChapterMeta(
         source: String,
         title: String?,
         chapterName: String?,
         chapterUrl: String?,
         coverUrl: String?,
-        imageUrls: List<String>,
+        chapterKey: String,
     ) {
         if (!enabled) return
-        val info = ChapterInfo(source, title, chapterName, chapterUrl, coverUrl)
-        imageUrls.forEach { pageChapterMap[it] = info }
-        if (pageChapterMap.size > 3000) pageChapterMap.clear()
+        chapterMetaByKey[chapterKey] = ChapterMeta(source, title, chapterName, chapterUrl, coverUrl)
+        if (chapterMetaByKey.size > 50) chapterMetaByKey.clear()
+    }
+
+    /** Report a chapter when it becomes the actively viewed one (deduped). */
+    fun reportChapterViewed(chapterKey: String) {
+        if (!enabled) return
+        if (chapterKey == lastReportedViewKey) return
+        val meta = chapterMetaByKey[chapterKey] ?: return
+        lastReportedViewKey = chapterKey
+        reportChapterOpened(meta.source, meta.title, meta.chapterName, meta.chapterUrl, meta.coverUrl)
     }
 
     /**
-     * Interceptor that piggybacks on the source's network activity (page/image loads):
-     * - reports a chapter the moment the reader actually requests one of its pages
-     * - otherwise sends a throttled "still reading" heartbeat to the bridge
+     * Interceptor that piggybacks on the source's network activity (page/image loads)
+     * to send a throttled "still reading" heartbeat to the bridge.
      *
      * Heartbeats are only active for 30 minutes after the last reported chapter,
      * so casual browsing does not keep the presence alive.
@@ -93,14 +100,6 @@ object DiscordBridgeReporter {
         val request = chain.request()
         if (enabled) {
             val now = System.currentTimeMillis()
-
-            pageChapterMap[request.url.toString()]?.let { info ->
-                val key = "${info.source}|${info.chapterName}"
-                if (key != lastReportedChapterKey) {
-                    lastReportedChapterKey = key
-                    reportChapterOpened(info.source, info.title, info.chapterName, info.chapterUrl, info.coverUrl)
-                }
-            }
 
             val prev = lastHeartbeatAt.get()
             if (now - lastChapterOpenAt < 30 * 60_000L &&

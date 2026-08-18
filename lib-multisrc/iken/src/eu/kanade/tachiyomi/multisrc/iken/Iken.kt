@@ -362,15 +362,6 @@ abstract class Iken :
             }
         }.getOrNull()
 
-        // Immediate report when a chapter's pages are loaded (same as before).
-        DiscordBridgeReporter.reportChapterOpened(
-            source = name,
-            title = seriesMeta?.title ?: seriesSlug,
-            chapterName = chapter.name,
-            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
-            coverUrl = seriesMeta?.thumbnail_url,
-        )
-
         val sortedPages = if (sortPagesByFilename) {
             data.images.sortedWith(
                 compareBy { page ->
@@ -382,11 +373,33 @@ abstract class Iken :
             data.images.sortedBy { it.order ?: Int.MAX_VALUE }
         }
 
-        val pages = sortedPages.mapIndexed { idx, p ->
-            Page(idx, imageUrl = p.url.replace(" ", "%20"))
-        }
+        // Do NOT report here: apps prefetch page lists of upcoming chapters early.
+        // Pages are returned WITHOUT imageUrl, forcing the app to call
+        // getImageUrl() lazily right before displaying each page - that is our
+        // reliable "user is actually viewing this chapter now" signal.
+        val imageUrls = sortedPages.map { it.url.replace(" ", "%20") }
+        pageListCache[chapter.url] = imageUrls
+        DiscordBridgeReporter.registerChapterMeta(
+            source = name,
+            title = seriesMeta?.title ?: seriesSlug,
+            chapterName = chapter.name,
+            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
+            coverUrl = seriesMeta?.thumbnail_url,
+            chapterKey = chapter.url,
+        )
 
-        return pages
+        return imageUrls.indices.map { idx ->
+            Page(idx, url = chapter.url, imageUrl = null)
+        }
+    }
+
+    private val pageListCache = java.util.concurrent.ConcurrentHashMap<String, List<String>>()
+
+    /** Called lazily by the reader right before displaying each page (imageUrl is null). */
+    override suspend fun getImageUrl(page: Page): String {
+        DiscordBridgeReporter.reportChapterViewed(page.url)
+        return pageListCache[page.url]?.getOrNull(page.index)
+            ?: throw Exception("Chapter pages not loaded - reopen the chapter")
     }
 
     // ============================== View =============================
