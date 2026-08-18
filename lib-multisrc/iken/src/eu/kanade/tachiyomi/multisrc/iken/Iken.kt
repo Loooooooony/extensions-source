@@ -362,9 +362,7 @@ abstract class Iken :
             }
         }.getOrNull()
 
-        // Immediate report (covers fresh chapter opens). The reader may prefetch
-        // this call early, so registerChapterPages below corrects the presence
-        // to the chapter whose pages are actually being displayed.
+        // Immediate report when a chapter's pages are loaded (same as before).
         DiscordBridgeReporter.reportChapterOpened(
             source = name,
             title = seriesMeta?.title ?: seriesSlug,
@@ -387,18 +385,6 @@ abstract class Iken :
         val pages = sortedPages.mapIndexed { idx, p ->
             Page(idx, imageUrl = p.url.replace(" ", "%20"))
         }
-
-        // Apps prefetch page lists of upcoming chapters early, so do NOT report
-        // here. Register the pages instead: the chapter is reported the moment
-        // the reader actually requests one of its images.
-        DiscordBridgeReporter.registerChapterPages(
-            source = name,
-            title = seriesMeta?.title ?: seriesSlug,
-            chapterName = chapter.name,
-            chapterUrl = runCatching { getChapterUrl(chapter) }.getOrNull(),
-            coverUrl = seriesMeta?.thumbnail_url,
-            imageUrls = pages.mapNotNull { it.imageUrl },
-        )
 
         return pages
     }
