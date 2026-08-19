@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
 object DiscordBridgeReporter {
 
     // ====== USER SETTINGS (edit these two lines before building) ======
-    private const val BRIDGE_URL = "http://192.168.0.107:8765"
+    private const val BRIDGE_URL = "http://192.168.0.101:8765"
     private const val BRIDGE_TOKEN = "vH_KuoMuT0UyhrXq6G1EnqG-DRoTIIU8xlFIyvC3qao"
     // ==================================================================
 
