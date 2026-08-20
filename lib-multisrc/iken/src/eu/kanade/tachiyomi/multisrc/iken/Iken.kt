@@ -377,6 +377,9 @@ abstract class Iken :
         // Pages are returned WITHOUT imageUrl, forcing the app to call
         // getImageUrl() lazily right before displaying each page - that is our
         // reliable "user is actually viewing this chapter now" signal.
+        // The cacheBuster fragment makes every app launch cache-unique, so
+        // re-opening an already-read chapter (e.g. from history) still reaches
+        // getImageUrl() and gets reported instead of silently hitting the cache.
         val imageUrls = sortedPages.map { it.url.replace(" ", "%20") }
         pageListCache[chapter.url] = imageUrls
         DiscordBridgeReporter.registerChapterMeta(
@@ -389,7 +392,7 @@ abstract class Iken :
         )
 
         return imageUrls.indices.map { idx ->
-            Page(idx, url = chapter.url, imageUrl = null)
+            Page(idx, url = chapter.url + DiscordBridgeReporter.cacheBuster, imageUrl = null)
         }
     }
 
@@ -397,8 +400,9 @@ abstract class Iken :
 
     /** Called lazily by the reader right before displaying each page (imageUrl is null). */
     override suspend fun getImageUrl(page: Page): String {
-        DiscordBridgeReporter.reportChapterViewed(page.url)
-        return pageListCache[page.url]?.getOrNull(page.index)
+        val chapterKey = page.url.substringBefore("#dc-")
+        DiscordBridgeReporter.reportChapterViewed(chapterKey)
+        return pageListCache[chapterKey]?.getOrNull(page.index)
             ?: throw Exception("Chapter pages not loaded - reopen the chapter")
     }
 

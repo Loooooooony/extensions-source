@@ -35,6 +35,15 @@ object DiscordBridgeReporter {
     private const val DISCOVERY_PORT = 8766
     private const val DISCOVERY_MAGIC = "TACHIMANGA_DISCOVER"
 
+    /**
+     * Per-app-launch URL fragment appended to stub pages (Iken) so the reader's
+     * page cache never matches a previous launch. This forces the app to call
+     * getImageUrl() again - which is our "user is viewing this chapter" signal -
+     * even when re-opening an already-read chapter from history. The fragment is
+     * never sent over HTTP, and image URLs themselves are untouched.
+     */
+    val cacheBuster: String = "#dc-" + java.util.UUID.randomUUID().toString().substring(0, 8)
+
     private val enabled: Boolean
         get() = BRIDGE_TOKEN != "CHANGE_ME_LONG_RANDOM_TOKEN"
 
