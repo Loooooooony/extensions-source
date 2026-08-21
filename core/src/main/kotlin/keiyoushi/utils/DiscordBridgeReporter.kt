@@ -10,9 +10,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.net.DatagramPacket
-import java.net.DatagramSocket
-import java.net.InetAddress
 import java.util.concurrent.TimeUnit
 
 /**
@@ -21,19 +18,20 @@ import java.util.concurrent.TimeUnit
  *
  * The report is fire-and-forget: it never blocks page loading and swallows every error.
  *
- * The bridge is located automatically via UDP broadcast discovery (survives the
- * laptop's IP changing via DHCP). [BRIDGE_URL] is only a fallback; [BRIDGE_TOKEN]
- * must match the bridge's config.json.
+ * The bridge's current LAN IP is read from a private GitHub Gist that the bridge
+ * keeps updated (UDP broadcast discovery does not work on iOS). [BRIDGE_URL] is
+ * only a last-resort fallback; [BRIDGE_TOKEN] must match the bridge's config.json.
  */
 object DiscordBridgeReporter {
 
     // ====== USER SETTINGS (token must match the bridge config.json) ======
-    private const val BRIDGE_URL = "http://192.168.0.101:8765" // fallback only
+    private const val BRIDGE_URL = "http://192.168.0.100:8765" // last-resort fallback
     private const val BRIDGE_TOKEN = "vH_KuoMuT0UyhrXq6G1EnqG-DRoTIIU8xlFIyvC3qao"
+    private const val GIST_IP_URL =
+        "https://gist.githubusercontent.com/Loooooooony/8182a7c0ae28ec8c79ad458d58374f13/raw/bridge_ip.txt"
     // ==================================================================
 
-    private const val DISCOVERY_PORT = 8766
-    private const val DISCOVERY_MAGIC = "TACHIMANGA_DISCOVER"
+    private const val BRIDGE_PORT = 8765
 
     /**
      * Per-app-launch URL fragment appended to stub pages (Iken) so the reader's
@@ -63,48 +61,39 @@ object DiscordBridgeReporter {
 
     private val lastHeartbeatAt = java.util.concurrent.atomic.AtomicLong(0)
 
-    // ====== bridge auto-discovery ======
+    // ====== bridge address resolution ======
     // The laptop's LAN IP changes whenever the router reassigns DHCP leases, so a
-    // hardcoded address breaks silently. Instead we broadcast "where is the bridge?"
-    // and the bridge answers with its port; the sender's IP is the address we need.
+    // hardcoded address breaks silently. The bridge publishes its current IP to a
+    // private Gist; we fetch it over plain HTTPS (iOS blocks LAN UDP broadcast).
 
     @Volatile
     private var cachedBridgeUrl: String? = null
 
     private fun resolveBridgeUrl(): String {
         cachedBridgeUrl?.let { return it }
-        discoverBridge()?.let {
-            cachedBridgeUrl = it
-            return it
+        fetchPublishedIp()?.let {
+            val url = "http://$it:$BRIDGE_PORT"
+            cachedBridgeUrl = url
+            return url
         }
         return BRIDGE_URL
     }
 
-    private fun discoverBridge(): String? = runCatching {
-        val socket = DatagramSocket()
-        socket.broadcast = true
-        socket.soTimeout = 800
-        try {
-            val msg = DISCOVERY_MAGIC.toByteArray()
-            socket.send(DatagramPacket(msg, msg.size, InetAddress.getByName("255.255.255.255"), DISCOVERY_PORT))
-            val buf = ByteArray(256)
-            val resp = DatagramPacket(buf, buf.size)
-            socket.receive(resp)
-            val text = String(resp.data, 0, resp.length)
-            if (text.startsWith("TACHIMANGA_BRIDGE:")) {
-                "http://${resp.address.hostAddress}:${text.substringAfter(':').trim()}"
-            } else {
-                null
-            }
-        } finally {
-            runCatching { socket.close() }
+    private val ipPattern = Regex("""\d{1,3}(\.\d{1,3}){3}""")
+
+    private fun fetchPublishedIp(): String? = runCatching {
+        val req = Request.Builder().url(GIST_IP_URL).build()
+        client.newCall(req).execute().use { resp ->
+            if (!resp.isSuccessful) return null
+            val ip = resp.body.string().trim()
+            if (ipPattern.matches(ip)) ip else null
         }
     }.getOrNull()
 
     private fun postToBridge(payload: String) {
         val url = resolveBridgeUrl()
         if (tryPost(url, payload)) return
-        // The cached address went stale (laptop got a new IP) - rediscover and retry once.
+        // The cached address went stale (laptop got a new IP) - refetch and retry once.
         if (url == cachedBridgeUrl) cachedBridgeUrl = null
         val fresh = resolveBridgeUrl()
         if (fresh != url) tryPost(fresh, payload)
