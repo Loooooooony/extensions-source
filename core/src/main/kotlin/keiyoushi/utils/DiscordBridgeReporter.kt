@@ -5,6 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -18,8 +20,9 @@ import java.util.concurrent.TimeUnit
  *
  * The report is fire-and-forget: it never blocks page loading and swallows every error.
  *
- * The bridge's current LAN IP is read from a private GitHub Gist that the bridge
- * keeps updated (UDP broadcast discovery does not work on iOS). [BRIDGE_URL] is
+ * The bridge's current LAN address is read from bridge.json at this repo's root,
+ * which the bridge itself rewrites via the GitHub API when its DHCP lease changes
+ * (UDP broadcast discovery does not work on iOS). [BRIDGE_URL] is
  * only a last-resort fallback; [BRIDGE_TOKEN] must match the bridge's config.json.
  */
 object DiscordBridgeReporter {
@@ -27,8 +30,8 @@ object DiscordBridgeReporter {
     // ====== USER SETTINGS (token must match the bridge config.json) ======
     private const val BRIDGE_URL = "http://192.168.0.100:8765" // last-resort fallback
     private const val BRIDGE_TOKEN = "vH_KuoMuT0UyhrXq6G1EnqG-DRoTIIU8xlFIyvC3qao"
-    private const val GIST_IP_URL =
-        "https://gist.githubusercontent.com/Loooooooony/8182a7c0ae28ec8c79ad458d58374f13/raw/bridge_ip.txt"
+    private const val BRIDGE_CONFIG_URL =
+        "https://raw.githubusercontent.com/Loooooooony/extensions-source/main/bridge.json"
     // ==================================================================
 
     private const val BRIDGE_PORT = 8765
@@ -63,30 +66,39 @@ object DiscordBridgeReporter {
 
     // ====== bridge address resolution ======
     // The laptop's LAN IP changes whenever the router reassigns DHCP leases, so a
-    // hardcoded address breaks silently. The bridge publishes its current IP to a
-    // private Gist; we fetch it over plain HTTPS (iOS blocks LAN UDP broadcast).
+    // hardcoded address breaks silently. The bridge commits its current address to
+    // bridge.json in this repo; we fetch it over plain HTTPS (raw CDN caches ~5min,
+    // so a per-minute cache buster keeps us fresh during a reading session).
 
     @Volatile
     private var cachedBridgeUrl: String? = null
 
     private fun resolveBridgeUrl(): String {
         cachedBridgeUrl?.let { return it }
-        fetchPublishedIp()?.let {
-            val url = "http://$it:$BRIDGE_PORT"
+        fetchBridgeAddress()?.let { (host, port) ->
+            val url = "http://$host:$port"
             cachedBridgeUrl = url
             return url
         }
         return BRIDGE_URL
     }
 
-    private val ipPattern = Regex("""\d{1,3}(\.\d{1,3}){3}""")
+    // raw.githubusercontent is served through a CDN that caches for ~5 minutes;
+    // rotating the query string once per minute yields near-real-time config
+    // without hammering the endpoint.
+    private val configBuster: String
+        get() = "?v=" + System.currentTimeMillis() / 60_000L
 
-    private fun fetchPublishedIp(): String? = runCatching {
-        val req = Request.Builder().url(GIST_IP_URL).build()
+    private fun fetchBridgeAddress(): Pair<String, Int>? = runCatching {
+        val req = Request.Builder().url(BRIDGE_CONFIG_URL + configBuster).build()
         client.newCall(req).execute().use { resp ->
-            if (!resp.isSuccessful) return null
-            val ip = resp.body.string().trim()
-            if (ipPattern.matches(ip)) ip else null
+            if (!resp.isSuccessful) return@runCatching null
+            val obj = kotlinx.serialization.json.Json.parseToJsonElement(
+                resp.body.string(),
+            ).jsonObject
+            val host = obj["host"]?.jsonPrimitive?.content ?: return@runCatching null
+            val port = obj["port"]?.jsonPrimitive?.content?.toIntOrNull() ?: BRIDGE_PORT
+            host to port
         }
     }.getOrNull()
 
