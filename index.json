@@ -1,0 +1,1153 @@
+{
+  "name": "Loooooooony Arabic Extensions",
+  "badgeLabel": "Discord",
+  "signingKey": "7d44ab0fdfa10a528d0b43c64376201bb0a4fce27e7effb85d88afad868deb08",
+  "contact": {
+    "website": "https://github.com/Loooooooony/extensions-source"
+  },
+  "extensionList": {
+    "extensions": [
+      {
+        "name": "Anyone Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.anyonemanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.anyonemanga-v1.4.20053.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.anyonemanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.anyonemanga-v1.4.20053.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20053",
+        "versionName": "1.4.20053",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2056490261402651047",
+            "name": "Anyone Manga",
+            "language": "ar",
+            "homeUrl": "https://anyonemanga.com"
+          }
+        ]
+      },
+      {
+        "name": "ArabManhwa",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.arabmanhwa",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.arabmanhwa-v1.4.20053.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.arabmanhwa.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.arabmanhwa-v1.4.20053.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20053",
+        "versionName": "1.4.20053",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "5823096631874106406",
+            "name": "ArabManhwa",
+            "language": "ar",
+            "homeUrl": "https://arabmanhwa.com"
+          }
+        ]
+      },
+      {
+        "name": "Arabs Hentai",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.arabshentai",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.arabshentai-v1.4.20004.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.arabshentai.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.arabshentai-v1.4.20004.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20004",
+        "versionName": "1.4.20004",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "3472625749271868375",
+            "name": "هنتاي العرب",
+            "language": "ar",
+            "homeUrl": "https://arabshentai.com"
+          }
+        ]
+      },
+      {
+        "name": "Arab Toons",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.arabtoons",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.arabtoons-v1.4.20053.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.arabtoons.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.arabtoons-v1.4.20053.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20053",
+        "versionName": "1.4.20053",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "2424761902286195560",
+            "name": "عرب تونز",
+            "language": "ar",
+            "homeUrl": "https://arabtoons.net"
+          }
+        ]
+      },
+      {
+        "name": "ArbxComix",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.arbxcomix",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.arbxcomix-v1.4.20052.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.arbxcomix.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.arbxcomix-v1.4.20052.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20052",
+        "versionName": "1.4.20052",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "6405758918736185117",
+            "name": "ArbxComix",
+            "language": "ar",
+            "homeUrl": "https://arbxcomix.com"
+          }
+        ]
+      },
+      {
+        "name": "Area Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.areamanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.areamanga-v1.4.20034.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.areamanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.areamanga-v1.4.20034.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20034",
+        "versionName": "1.4.20034",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "8112280317896333809",
+            "name": "أريا مانجا",
+            "language": "ar",
+            "homeUrl": "https://ar.kenmanga.com"
+          }
+        ]
+      },
+      {
+        "name": "AriaToon",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.ariatoon",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.ariatoon-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.ariatoon.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.ariatoon-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "8156789703798131884",
+            "name": "AriaToon",
+            "language": "ar",
+            "homeUrl": "https://ariatoon.com"
+          }
+        ]
+      },
+      {
+        "name": "Azora",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.azora",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.azora-v1.6.20072.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.azora.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.azora-v1.6.20072.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20072",
+        "versionName": "1.6.20072",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2482399499047903203",
+            "name": "Azora",
+            "language": "ar",
+            "homeUrl": "https://azorafly.com"
+          }
+        ]
+      },
+      {
+        "name": "Brown Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.brownmanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.brownmanga-v1.4.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.brownmanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.brownmanga-v1.4.20001.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20001",
+        "versionName": "1.4.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2954767545439802080",
+            "name": "Brown Manga",
+            "language": "ar",
+            "homeUrl": "https://brownmanga.site"
+          }
+        ]
+      },
+      {
+        "name": "Comic Verse",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.comicverse",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.comicverse-v1.4.20016.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.comicverse.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.comicverse-v1.4.20016.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20016",
+        "versionName": "1.4.20016",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "7487319247633385575",
+            "name": "Comic Verse",
+            "language": "ar",
+            "homeUrl": "https://arcomixverse.blogspot.com"
+          }
+        ]
+      },
+      {
+        "name": "Despair Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.despairmanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.despairmanga-v1.4.20032.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.despairmanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.despairmanga-v1.4.20032.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20032",
+        "versionName": "1.4.20032",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "886527590434722171",
+            "name": "Despair Manga",
+            "language": "ar",
+            "homeUrl": "https://despair-manga.net"
+          }
+        ]
+      },
+      {
+        "name": "Detective Conan Ar",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.detectiveconanar",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.detectiveconanar-v1.4.20055.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.detectiveconanar.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.detectiveconanar-v1.4.20055.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20055",
+        "versionName": "1.4.20055",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "5702082694566979718",
+            "name": "شبكة كونان العربية",
+            "language": "ar",
+            "homeUrl": "https://manga.detectiveconanar.com"
+          }
+        ]
+      },
+      {
+        "name": "Dilar",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.dilar",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.dilar-v1.6.20012.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.dilar.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.dilar-v1.6.20012.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20012",
+        "versionName": "1.6.20012",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "7634600808243438399",
+            "name": "Dilar",
+            "language": "ar",
+            "homeUrl": "https://dilar.tube"
+          }
+        ]
+      },
+      {
+        "name": "Duskoryvile",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.duskoryvile",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.duskoryvile-v1.4.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.duskoryvile.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.duskoryvile-v1.4.20001.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20001",
+        "versionName": "1.4.20001",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "4544396460505163576",
+            "name": "Duskoryvile",
+            "language": "ar",
+            "homeUrl": "https://duskoryvile.com"
+          }
+        ]
+      },
+      {
+        "name": "Empire Webtoon",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.empirewebtoon",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.empirewebtoon-v1.4.20058.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.empirewebtoon.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.empirewebtoon-v1.4.20058.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20058",
+        "versionName": "1.4.20058",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "2655166136445570124",
+            "name": "Empire Webtoon",
+            "language": "ar",
+            "homeUrl": "https://webtoonempire-bl.com"
+          }
+        ]
+      },
+      {
+        "name": "EShadow",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.eshadow",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.eshadow-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.eshadow.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.eshadow-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "8617573161604126293",
+            "name": "EShadow",
+            "language": "ar",
+            "homeUrl": "https://eshadow.net"
+          }
+        ]
+      },
+      {
+        "name": "Goon Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.goonscans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.goonscans-v1.4.20032.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.goonscans.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.goonscans-v1.4.20032.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20032",
+        "versionName": "1.4.20032",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "2899371341317171497",
+            "name": "Goon Scans",
+            "language": "ar",
+            "homeUrl": "https://goonscans.org"
+          }
+        ]
+      },
+      {
+        "name": "HentaiMan",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.hentaiman",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.hentaiman-v1.4.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.hentaiman.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.hentaiman-v1.4.20001.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20001",
+        "versionName": "1.4.20001",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "4335920001580787887",
+            "name": "HentaiMan",
+            "language": "ar",
+            "homeUrl": "https://hentaiman.net"
+          }
+        ]
+      },
+      {
+        "name": "Hentai Slayer",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.hentaislayer",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.hentaislayer-v1.4.20006.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.hentaislayer.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.hentaislayer-v1.4.20006.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20006",
+        "versionName": "1.4.20006",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "1383489648660567366",
+            "name": "هنتاي سلاير",
+            "language": "ar",
+            "homeUrl": "https://hentaislayer.net"
+          }
+        ]
+      },
+      {
+        "name": "Hijala",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.hijala",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.hijala-v1.4.20035.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.hijala.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.hijala-v1.4.20035.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20035",
+        "versionName": "1.4.20035",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "917436262447415426",
+            "name": "Hijala",
+            "language": "ar",
+            "homeUrl": "https://hijala.com"
+          }
+        ]
+      },
+      {
+        "name": "HizoManga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.hizomanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.hizomanga-v1.4.20052.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.hizomanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.hizomanga-v1.4.20052.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20052",
+        "versionName": "1.4.20052",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "4177563748162518441",
+            "name": "Hizo Manga",
+            "language": "ar",
+            "homeUrl": "https://hizomanga.net"
+          }
+        ]
+      },
+      {
+        "name": "Kawii Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.kawiimanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.kawiimanga-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.kawiimanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.kawiimanga-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "5037404094705788694",
+            "name": "Kawii Manga",
+            "language": "ar",
+            "homeUrl": "https://kawaiimanga.org"
+          }
+        ]
+      },
+      {
+        "name": "Lava Scans",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.lavascans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.lavascans-v1.4.20033.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.lavascans.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.lavascans-v1.4.20033.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20033",
+        "versionName": "1.4.20033",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "3209001028102012989",
+            "name": "Lava Scans",
+            "language": "ar",
+            "homeUrl": "https://lavascans.com"
+          }
+        ]
+      },
+      {
+        "name": "Loner Translations",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.lonertranslations",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.lonertranslations-v1.4.20014.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.lonertranslations.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.lonertranslations-v1.4.20014.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20014",
+        "versionName": "1.4.20014",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "323105186892383931",
+            "name": "Loner Translations",
+            "language": "ar",
+            "homeUrl": "https://loner-tl.blogspot.com"
+          }
+        ]
+      },
+      {
+        "name": "3asq",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.manga3asq",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.manga3asq-v1.4.20056.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.manga3asq.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.manga3asq-v1.4.20056.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20056",
+        "versionName": "1.4.20056",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "1073624495230267708",
+            "name": "مانجا العاشق",
+            "language": "ar",
+            "homeUrl": "https://3asq.online"
+          }
+        ]
+      },
+      {
+        "name": "Manga Ai Land",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangaailand",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangaailand-v1.4.20014.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangaailand.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangaailand-v1.4.20014.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20014",
+        "versionName": "1.4.20014",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "7109397520501699498",
+            "name": "Manga Ai Land",
+            "language": "ar",
+            "homeUrl": "https://manga-ai-land.blogspot.com"
+          }
+        ]
+      },
+      {
+        "name": "MangaCloud",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangacloud",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangacloud-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangacloud.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangacloud-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "1630897072449336068",
+            "name": "MangaCloud",
+            "language": "ar",
+            "homeUrl": "https://mangacloud.online"
+          }
+        ]
+      },
+      {
+        "name": "MangaDar",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangadar",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangadar-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangadar.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangadar-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "3975276517041363504",
+            "name": "MangaDar",
+            "language": "ar",
+            "homeUrl": "https://mangadar.com"
+          }
+        ]
+      },
+      {
+        "name": "MangaHub",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangahub",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangahub-v1.4.20016.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangahub.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangahub-v1.4.20016.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20016",
+        "versionName": "1.4.20016",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "9160891278578525988",
+            "name": "MangaHub",
+            "language": "ar",
+            "homeUrl": "https://www.mangaxhentai.com"
+          }
+        ]
+      },
+      {
+        "name": "Mangalek",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangalek",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangalek-v1.4.20065.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangalek.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangalek-v1.4.20065.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20065",
+        "versionName": "1.4.20065",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "918460697583900080",
+            "name": "مانجا ليك",
+            "language": "ar",
+            "homeUrl": "https://mangalik.net",
+            "mirrorUrls": [
+              "https://mangalik.net",
+              "https://lekmanga.online",
+              "https://like-manga.net",
+              "https://lekmanga.site",
+              "https://manga-leko.site"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Mangalink",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangalink",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangalink-v1.4.20057.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangalink.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangalink-v1.4.20057.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20057",
+        "versionName": "1.4.20057",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "3568795724496898351",
+            "name": "مانجا لينك",
+            "language": "ar",
+            "homeUrl": "https://link-manga.net"
+          }
+        ]
+      },
+      {
+        "name": "MangaLionz",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangalionz",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangalionz-v1.4.20057.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangalionz.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangalionz-v1.4.20057.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20057",
+        "versionName": "1.4.20057",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2589550143244611118",
+            "name": "MangaLionz",
+            "language": "ar",
+            "homeUrl": "https://manga-lionz.org"
+          }
+        ]
+      },
+      {
+        "name": "MangaSpark",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangaspark",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangaspark-v1.4.20060.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangaspark.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangaspark-v1.4.20060.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20060",
+        "versionName": "1.4.20060",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2436176998646301840",
+            "name": "MangaSpark",
+            "language": "ar",
+            "homeUrl": "https://sparkmanga.net"
+          }
+        ]
+      },
+      {
+        "name": "Manga Starz",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangastarz",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangastarz-v1.4.20061.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangastarz.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangastarz-v1.4.20061.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20061",
+        "versionName": "1.4.20061",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "6058166507489091982",
+            "name": "Manga Starz",
+            "language": "ar",
+            "homeUrl": "https://manga-starz.net"
+          }
+        ]
+      },
+      {
+        "name": "MangaSwat",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangaswat",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangaswat-v1.6.20061.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangaswat.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangaswat-v1.6.20061.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20061",
+        "versionName": "1.6.20061",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "7657007209499352344",
+            "name": "MangaSwat",
+            "language": "ar",
+            "homeUrl": "https://meshmanga.com"
+          }
+        ]
+      },
+      {
+        "name": "Manga Tales",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangatales",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangatales-v1.6.20004.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangatales.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangatales-v1.6.20004.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20004",
+        "versionName": "1.6.20004",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "5218550345649535189",
+            "name": "Manga Tales",
+            "language": "ar",
+            "homeUrl": "https://www.mangatales.com"
+          }
+        ]
+      },
+      {
+        "name": "MangaTek",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangatek",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangatek-v1.6.20005.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangatek.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangatek-v1.6.20005.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20005",
+        "versionName": "1.6.20005",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "1011491016492324749",
+            "name": "MangaTek",
+            "language": "ar",
+            "homeUrl": "https://mangatek.com"
+          }
+        ]
+      },
+      {
+        "name": "MangaTime",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangatime",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangatime-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangatime.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangatime-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "215553151312092548",
+            "name": "MangaTime",
+            "language": "ar",
+            "homeUrl": "https://mangatime.org"
+          }
+        ]
+      },
+      {
+        "name": "MangaTuk",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.mangatuk",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.mangatuk-v1.4.20052.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.mangatuk.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.mangatuk-v1.4.20052.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20052",
+        "versionName": "1.4.20052",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "4205255591548488472",
+            "name": "MangaTuk",
+            "language": "ar",
+            "homeUrl": "https://mangatuk.com"
+          }
+        ]
+      },
+      {
+        "name": "Manhatic",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.manhatic",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.manhatic-v1.4.20052.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.manhatic.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.manhatic-v1.4.20052.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20052",
+        "versionName": "1.4.20052",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "152314873890577786",
+            "name": "Manhatic",
+            "language": "ar",
+            "homeUrl": "https://manhatic.com"
+          }
+        ]
+      },
+      {
+        "name": "Manhatok",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.manhatok",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.manhatok-v1.4.20015.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.manhatok.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.manhatok-v1.4.20015.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20015",
+        "versionName": "1.4.20015",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "743599002989616408",
+            "name": "Manhatok",
+            "language": "ar",
+            "homeUrl": "https://manhatok.blogspot.com"
+          }
+        ]
+      },
+      {
+        "name": "Murim",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.murim",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.murim-v1.4.20015.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.murim.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.murim-v1.4.20015.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20015",
+        "versionName": "1.4.20015",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "4966914277555229831",
+            "name": "Murim",
+            "language": "ar",
+            "homeUrl": "https://www.murim.site"
+          }
+        ]
+      },
+      {
+        "name": "NeverScans",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.neverscans",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.neverscans-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.neverscans.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.neverscans-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "8433210273073845288",
+            "name": "NeverScans",
+            "language": "ar",
+            "homeUrl": "https://neverscans.com"
+          }
+        ]
+      },
+      {
+        "name": "Oduto",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.oduto",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.oduto-v1.6.20001.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.oduto.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.oduto-v1.6.20001.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20001",
+        "versionName": "1.6.20001",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "1862668423724227387",
+            "name": "Oduto",
+            "language": "ar",
+            "homeUrl": "https://nb19u.blogspot.com"
+          }
+        ]
+      },
+      {
+        "name": "Onma",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.onma",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.onma-v1.4.20016.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.onma.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.onma-v1.4.20016.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20016",
+        "versionName": "1.4.20016",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "335499577904379512",
+            "name": "مانجا اون لاين",
+            "language": "ar",
+            "homeUrl": "https://onma.me"
+          }
+        ]
+      },
+      {
+        "name": "Orca Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.orcamanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.orcamanga-v1.4.20015.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.orcamanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.orcamanga-v1.4.20015.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20015",
+        "versionName": "1.4.20015",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "5634203247016722993",
+            "name": "Orca Manga",
+            "language": "ar",
+            "homeUrl": "https://infinity896.blogspot.com"
+          }
+        ]
+      },
+      {
+        "name": "Paradise BL",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.paradisebl",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.paradisebl-v1.4.20052.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.paradisebl.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.paradisebl-v1.4.20052.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20052",
+        "versionName": "1.4.20052",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "4957859168133378262",
+            "name": "Paradise BL",
+            "language": "ar",
+            "homeUrl": "https://paradise-bl.com"
+          }
+        ]
+      },
+      {
+        "name": "Rocks Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.rocksmanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.rocksmanga-v1.4.20055.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.rocksmanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.rocksmanga-v1.4.20055.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20055",
+        "versionName": "1.4.20055",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "3301038340499911137",
+            "name": "Rocks Manga",
+            "language": "ar",
+            "homeUrl": "https://rocksmanga.com"
+          }
+        ]
+      },
+      {
+        "name": "StellarSaber",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.stellarsaber",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.stellarsaber-v1.6.20033.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.stellarsaber.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.stellarsaber-v1.6.20033.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20033",
+        "versionName": "1.6.20033",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "2142158598125421915",
+            "name": "StellarSaber",
+            "language": "ar",
+            "homeUrl": "https://stellarsaber.pro"
+          }
+        ]
+      },
+      {
+        "name": "Team X",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.teamx",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.teamx-v1.6.20033.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.teamx.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.teamx-v1.6.20033.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "20033",
+        "versionName": "1.6.20033",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "4110737012647435874",
+            "name": "Team X",
+            "language": "ar",
+            "homeUrl": "https://olympustaff.com"
+          }
+        ]
+      },
+      {
+        "name": "XSano Manga",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.xsanomanga",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.xsanomanga-v1.4.20014.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.xsanomanga.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.xsanomanga-v1.4.20014.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20014",
+        "versionName": "1.4.20014",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "6170348197605244575",
+            "name": "XSano Manga",
+            "language": "ar",
+            "homeUrl": "https://www.xsano-manga.com"
+          }
+        ]
+      },
+      {
+        "name": "Yokai",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.yokai",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.yokai-v1.4.20016.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.yokai.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.yokai-v1.4.20016.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20016",
+        "versionName": "1.4.20016",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "4337506350787725909",
+            "name": "Yokai",
+            "language": "ar",
+            "homeUrl": "https://yokai-team.blogspot.com"
+          }
+        ]
+      },
+      {
+        "name": "Yona Bar",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.yonabar",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.yonabar-v1.4.20052.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.yonabar.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.yonabar-v1.4.20052.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20052",
+        "versionName": "1.4.20052",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "8019959770180418614",
+            "name": "Yona Bar",
+            "language": "ar",
+            "homeUrl": "https://yonaber.com"
+          }
+        ]
+      },
+      {
+        "name": "Yuri Moon Sub",
+        "packageName": "eu.kanade.tachiyomi.extension.ar.yurimoonsub",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/apk/tachiyomi-ar.yurimoonsub-v1.4.20016.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/icon/eu.kanade.tachiyomi.extension.ar.yurimoonsub.png",
+          "jarUrl": "https://raw.githubusercontent.com/Loooooooony/extensions-source/repo/jar/tachiyomi-ar.yurimoonsub-v1.4.20016.jar"
+        },
+        "extensionLib": "1.4",
+        "versionCode": "20016",
+        "versionName": "1.4.20016",
+        "contentWarning": "CONTENT_WARNING_NSFW",
+        "sources": [
+          {
+            "id": "7833471811016150678",
+            "name": "Yuri Moon Sub",
+            "language": "ar",
+            "homeUrl": "https://yurimoonsub.blogspot.com"
+          }
+        ]
+      }
+    ]
+  }
+}
