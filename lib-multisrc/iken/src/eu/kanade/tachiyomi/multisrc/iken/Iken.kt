@@ -355,12 +355,18 @@ abstract class Iken :
         updateViews(null, id)
 
         val seriesSlug = chapter.memo["seriesSlug"]?.string
-        // Fetch series meta (real title + cover) so Discord presence shows them
-        val seriesMeta = runCatching {
-            seriesSlug?.let { slug ->
+        // Fetch series meta (real title + cover) so Discord presence shows them.
+        // Cached per series: this is an EXTRA request on top of the chapter fetch,
+        // and downloading 30 chapters of one manga used to repeat it 30 times for
+        // metadata that never changes between chapters.
+        val seriesMeta = seriesSlug?.let { slug ->
+            seriesMetaCache[slug] ?: runCatching {
                 client.get("$apiUrl/api/post?postSlug=$slug").parseAs<MangaDto>().post.toSManga()
+            }.getOrNull()?.also {
+                if (seriesMetaCache.size > 50) seriesMetaCache.clear()
+                seriesMetaCache[slug] = it
             }
-        }.getOrNull()
+        }
 
         val sortedPages = if (sortPagesByFilename) {
             data.images.sortedWith(
@@ -397,6 +403,9 @@ abstract class Iken :
     }
 
     private val pageListCache = java.util.concurrent.ConcurrentHashMap<String, List<String>>()
+
+    /** Series title/cover per slug - identical for every chapter of a series. */
+    private val seriesMetaCache = java.util.concurrent.ConcurrentHashMap<String, SManga>()
 
     /** Called lazily by the reader right before displaying each page (imageUrl is null). */
     override suspend fun getImageUrl(page: Page): String {

@@ -35,6 +35,7 @@ object DiscordBridgeReporter {
     // ==================================================================
 
     private const val BRIDGE_PORT = 8765
+    private const val BRIDGE_BACKOFF_MS = 5 * 60_000L
 
     /**
      * Per-app-launch URL fragment appended to stub pages (Iken) so the reader's
@@ -73,6 +74,14 @@ object DiscordBridgeReporter {
     @Volatile
     private var cachedBridgeUrl: String? = null
 
+    /**
+     * When the laptop is off or on another network, every heartbeat otherwise spent
+     * ~8s on two address lookups plus two dead LAN connects - competing for bandwidth
+     * and sockets with chapter downloads. Back off instead of retrying every 20s.
+     */
+    @Volatile
+    private var bridgeUnreachableUntil = 0L
+
     private fun resolveBridgeUrl(): String {
         cachedBridgeUrl?.let { return it }
         fetchBridgeAddress()?.let { (host, port) ->
@@ -104,11 +113,18 @@ object DiscordBridgeReporter {
 
     private fun postToBridge(payload: String) {
         val url = resolveBridgeUrl()
-        if (tryPost(url, payload)) return
+        if (tryPost(url, payload)) {
+            bridgeUnreachableUntil = 0L
+            return
+        }
         // The cached address went stale (laptop got a new IP) - refetch and retry once.
         if (url == cachedBridgeUrl) cachedBridgeUrl = null
         val fresh = resolveBridgeUrl()
-        if (fresh != url) tryPost(fresh, payload)
+        if (fresh != url && tryPost(fresh, payload)) {
+            bridgeUnreachableUntil = 0L
+            return
+        }
+        bridgeUnreachableUntil = System.currentTimeMillis() + BRIDGE_BACKOFF_MS
     }
 
     private fun tryPost(baseUrl: String, payload: String): Boolean = runCatching {
@@ -175,7 +191,8 @@ object DiscordBridgeReporter {
             val now = System.currentTimeMillis()
 
             val prev = lastHeartbeatAt.get()
-            if (now - lastChapterOpenAt < 30 * 60_000L &&
+            if (now >= bridgeUnreachableUntil &&
+                now - lastChapterOpenAt < 30 * 60_000L &&
                 now - prev > 20_000L &&
                 lastHeartbeatAt.compareAndSet(prev, now)
             ) {
@@ -196,6 +213,7 @@ object DiscordBridgeReporter {
     ) {
         if (!enabled) return
         lastChapterOpenAt = System.currentTimeMillis()
+        bridgeUnreachableUntil = 0L // a chapter open is worth one real attempt
         scope.launch {
             val payload = buildJsonObject {
                 put("event", "chapter_opened")
